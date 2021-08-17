@@ -9,6 +9,7 @@ What is a User Cookie and how to get it: Not Available
 
 Detailed code explination: Not Available
 
+
 also please give me a break for anything that doesnt make sense code wise, I wrote this script when I was bored in home room.
 
 If you have any errors with the program feel free to make a issue report and I will try to respond as quickly as possible
