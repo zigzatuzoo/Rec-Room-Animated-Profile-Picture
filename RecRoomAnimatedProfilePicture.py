@@ -2,8 +2,10 @@ import requests
 import time
 
 ''' Stuff you need to update for this to work '''
-userCookies = 'ARRAffinity=9d4f8c6d791fcb3cd5fdd416eb5c15cd8479b00ebabc0deb503b9fdce8c20c3c; ARRAffinitySameSite=9d4f8c6d791fcb3cd5fdd416eb5c15cd8479b00ebabc0deb503b9fdce8c20c3c; ai_user=6306LThwShjYfGm3V/ARdu|2021-08-14T02:14:23.594Z; __stripe_mid=c51a6b9d-b166-48dd-87ab-7750c17f9d9860990c; ai_session=fIj59WeLPXSWha8SI8eFBZ|1629160321507|1629160323589; __stripe_sid=8aa32273-df0a-437d-be71-139b51019aa9ce09b0; amplitude_id_e1693a1003671058b6abc356c8ba8d59rec.net=eyJkZXZpY2VJZCI6ImVmY2Q1YTMyLWQyZjItNGMwZi04MDBlLTcyMDA4Yzc0OThkMVIiLCJ1c2VySWQiOiIxNTY4MTMiLCJvcHRPdXQiOmZhbHNlLCJzZXNzaW9uSWQiOjE2MjkxNjAzMjA4OTcsImxhc3RFdmVudFRpbWUiOjE2MjkxNjAzMjQ2ODQsImV2ZW50SWQiOjE0NSwiaWRlbnRpZnlJZCI6MCwic2VxdWVuY2VOdW1iZXIiOjE0NX0='
-"This ^ userCookies variable is how Rec.Net knows that you are updating YOUR account, Currently i have it set to a default account @RecRoomAutomatedPFP if you want to mess around with it and see it in game before you put it on your account"
+userCookies = ''
+
+
+"This ^ userCookies variable is how Rec.Net knows that you are updating YOUR account, (user for the test account cookie broke, will fix tommorow) Currently i have it set to a default account @RecRoomAutomatedPFP if you want to mess around with it and see it in game before you put it on your account"
 
 image1 = '2d83af05944d49c69fa9565fb238a91b.jpg'
 image2 = '49b2788b672e4088a25eb0a9eff35c17.jpg'
@@ -51,6 +53,7 @@ print(BToken)
 
 ''' The loop program that actually makes the picure move '''
 while 1 == 1:
+    
     ''' The HTTP header for changing your In-Game pfp '''
     Headers = {'sec-ch-ua':'";Not A Brand";v="99", "Chromium";v="88"',
           'Accept' : '*/*',
@@ -67,26 +70,27 @@ while 1 == 1:
           }
     ''' The easy way to edit what pfp plays after what '''
     def i1():
-        x = x + 1
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName1)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
     def i2():
-        x = x + 1
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName2)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
     def i3():
-        x = x + 1
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName3)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
     
-    ''' In this default format, it will show image 1 first, then image 2, then image 3, then image 2 again and will LOOP this '''
+    ''' In this default format, it will show image 1 first, then image 2, then image 3, then image 2 again and will LOOP this also the x = x + 1 is how the request counter adds 1 each time it makes a request '''
     i1()
+    x = x + 1
     i2()
+    x = x + 1
     i3()
+    x = x + 1
     i2()
+    x = x + 1
     
     ''' Requests a new auth token when that one is no longer valid '''
     r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers)
