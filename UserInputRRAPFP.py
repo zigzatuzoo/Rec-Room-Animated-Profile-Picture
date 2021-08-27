@@ -1,11 +1,13 @@
 import requests
 import time
+import array
 
 ''' DISCLAMER THIS IS AN ACTIVE PROJECT THIS DOES NOT WORK IN ITS CURRENT STATE '''
 
-infoFile = open('info.txt')
+rinfoFile = open('info.txt', 'r')
+winfoFile = open('info.txt', 'w')
 
-
+print(rinfoFile.readline(1))
 ''' initializing the values '''
 image1 = ''
 image2 = ''
@@ -22,9 +24,10 @@ imageSpeed = 1
 imageIndex = 1
 
 ''' starting questions '''
-imageOrder = array.array(input("What Order Do You Want The Images In? ex: 1,4,7,2,9,8,3 (no spaces in between the numbers"))
+imageOrder = input("What Order Do You Want The Images In? ex: 1472983 (no spaces in between the numbers")
 
-if infoFile.redline(0) != '':
+if rinfoFile.readline(1) != '':
+    rinfoFile.close()
     imageInput = input('Images saved, would you like to change the images? y or n.')
     if imageInput == 'y':
         print("To get the image names, go to the picture you want on rec.net and right click it to open it in a new tab. In the url it will show the image name. The url should be img.rec.net/(Insert Random Numbers And Letters Here).jpg")
@@ -40,22 +43,13 @@ if infoFile.redline(0) != '':
         image9 = input("What Is The Nineth Image Name? (If Not Used Leave Blank)")
         imageSpeed = input("How Long Do You Want The Images To Be On Your Profile? (The number that you put will be the amount of seconds it takes to change to the next image, minimum of 0.8, maximum of ... whatever you want honestly.")
         cookiePrompt = input("Please Input Your Auth Cookie.")
-        infoFile.writelines({0 : 'active',
-                            1 : image1,
-                            2 : image2,
-                            3 : image3, 
-                            4 : image4, 
-                            5 : image5, 
-                            6 : image6, 
-                            7 : image7, 
-                            8 : image8, 
-                            9 : image9, 
-                            10 : imageSpeed,
-                            11 : cookiePrompt})
-
+        L = ['active', image1, image2, image3, image4, image5, image6, image7, image8, image9, imageSpeed, cookiePrompt]
+        winfoFile.writelines(L)
+        winfoFile.close()
     if imageInput == 'n':
         print("Okay, continuing.")
-if infoFile.readline(1) == '':
+if rinfoFile.readline(1) == '':
+    rinfoFile.close()
     print("To get the image names, go to the picture you want on rec.net and right click it to open it in a new tab. In the url it will show the image name. The url should be img.rec.net/(Insert Random Numbers And Letters Here).jpg")
     image1 = input("What Is The First Image Name? (If Not Used Leave Blank)")
     image2 = input("What Is The Second Image Name? (If Not Used Leave Blank)")
@@ -68,30 +62,34 @@ if infoFile.readline(1) == '':
     image9 = input("What Is The Nineth Image Name? (If Not Used Leave Blank)")
     imageSpeed = input("How Long Do You Want The Images To Be On Your Profile? (The number that you put will be the amount of seconds it takes to change to the next image, minimum of 0.8, maximum of ... whatever you want honestly.")
     cookiePrompt = input("Please Input Your Auth Cookie.")
-    infoFile.writelines({0 : 'active',
-                         1 : image1,
-                         2 : image2,
-                         3 : image3, 
-                         4 : image4, 
-                         5 : image5, 
-                         6 : image6, 
-                         7 : image7, 
-                         8 : image8, 
-                         9 : image9, 
-                         10 : imageSpeed,
-                         11 : cookiePrompt})
+    forImage1 = image1 + '\n'
+    forImage2 = image2 + '\n'
+    forImage3 = image3 + '\n'
+    forImage4 = image4 + '\n'
+    forImage5 = image5 + '\n'
+    forImage6 = image6 + '\n'
+    forImage7 = image7 + '\n'
+    forImage8 = image8 + '\n'
+    forImage9 = image9 + '\n'
+    forImageSpeed = imageSpeed + '\n'
+    forCookiePrompt = cookiePrompt + '\n'
+    L = ['active\n', forImage1, forImage2, forImage3, forImage4, forImage5, forImage6, forImage7, forImage8, forImage9, forImageSpeed, forCookiePrompt]
+    winfoFile.writelines(L)
+    winfoFile.close()
 
-image1 = infoFile.readline(1)
-image2 = infoFile.readline(2)
-image3 = infoFile.readline(3)
-image4 = infoFile.readline(4)
-image5 = infoFile.readline(5)
-image6 = infoFile.readline(6)
-image7 = infoFile.readline(7)
-image8 = infoFile.readline(8)
-image9 = infoFile.readline(9)
-imageSpeed = infoFile.readline(10)
-cookiePrompt = infoFile.readline(11)
+rinfoFile = open('info.txt', 'r')
+
+image1 = rinfoFile.readline(2)
+image2 = rinfoFile.readline(3)
+image3 = rinfoFile.readline(4)
+image4 = rinfoFile.readline(5)
+image5 = rinfoFile.readline(6)
+image6 = rinfoFile.readline(7)
+image7 = rinfoFile.readline(8)
+image8 = rinfoFile.readline(9)
+image9 = rinfoFile.readline(10)
+imageSpeed = rinfoFile.readline(11)
+cookiePrompt = rinfoFile.readline(12)
 
 authHeader= {'Host' : 'auth.rec.net',
              'Connection' : 'close',
@@ -106,13 +104,33 @@ authHeader= {'Host' : 'auth.rec.net',
              'Referer' : 'https://rec.net',
              'Accept-Encoding' : 'gzip, deflate',
              'Accept-Language' : 'en-US,en;q=0.9',
-             'Cookie' : userCookie
+             'Cookie' : cookiePrompt
              }
 
-x = 0
+
 ''' defining the image requests '''
-def imagePutRequest(imageNumber):
+def imagePutRequest(imageNumber, x):
+    x = 1
+    Headers = {'sec-ch-ua':'";Not A Brand";v="99", "Chromium";v="88"',
+               'Accept' : '*/*',
+               'sec-ch-ua-mobile' : '?0',
+               'Authorization' : BToken,
+               'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
+               'Origin' : 'https://rec.net',
+               'Sec-Fetch-Site' : 'same-site',
+               'Sec-Fetch-Mode' : 'cors',
+               'Sec-Fetch-Dest' : 'empty',
+               'Referer' : 'https://rec.net/',
+               'Accept-Encoding' : 'gzip, deflate',
+               'Accept-Language' : 'en-US,en;q=0.9',
+               }
+
+    r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageNumber)
+    print(r)
+    if r.statuscode != '200':
+        x = 0
     if x == 0:
+
         authR = requests.get('https://auth.rec.net/connect/authorize?client_id=recnet&redirect_uri=https%3A%2F%2Frec.net%2Fauthenticate%2Fsilent&response_type=id_token%20token&scope=openid%20rn.api%20rn.notify%20rn.match.read%20rn.chat%20rn.accounts%20rn.auth%20rn.link%20rn.clubs%20rn.rooms&state=3b0bbf22ce1c40e7966dc6dd0f2df854&nonce=1ec7e44b909c416bbffae6b5e00ccb38&prompt=none', headers = authHeader, allow_redirects=True)
     
         nonbtoken = authR.url[945:2025]
@@ -136,12 +154,6 @@ def imagePutRequest(imageNumber):
                'Accept-Encoding' : 'gzip, deflate',
                'Accept-Language' : 'en-US,en;q=0.9',
                }
-        x = 1
-    
-    r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageNumber)
-    print(r)
-    if r.statuscode != '200':
-        x = 0
 
 
 while 1 == 1:
@@ -166,7 +178,7 @@ while 1 == 1:
         imageNumber = image9
     else:
         print("error")
-
-    imagePutRequest(imageNumber)
-    imageIndex = imageIndex + 2
+    x = 1
+    imagePutRequest(imageNumber, x)
+    imageIndex = imageIndex + 1
     time.sleep(imageSpeed)
