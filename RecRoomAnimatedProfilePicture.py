@@ -14,10 +14,8 @@ speed = 0.2
 "^ As you can probably guess, this changes how long the PFP stays on each image"
 
 ''' Just Initializing some values '''
-x=0
+x = 1
 BToken = ''
-tc1 = 942
-tc2 = 2038
 
 ''' Making the strings into the format read by the rec.net image api '''
 imageName1 = 'imageName=' + image1
@@ -43,7 +41,7 @@ authHeader= {'Host' : 'auth.rec.net',
 ''' Initial token request '''
 authR = requests.get('https://auth.rec.net/connect/authorize?client_id=recnet&redirect_uri=https%3A%2F%2Frec.net%2Fauthenticate%2Fsilent&response_type=id_token%20token&scope=openid%20rn.api%20rn.notify%20rn.match.read%20rn.chat%20rn.accounts%20rn.auth%20rn.link%20rn.clubs%20rn.rooms&state=3b0bbf22ce1c40e7966dc6dd0f2df854&nonce=1ec7e44b909c416bbffae6b5e00ccb38&prompt=none', headers = authHeader, allow_redirects=True)
     
-nonbtoken = authR.url[tc1:tc2]
+nonbtoken = authR.url.split("access_token=")[1].split("&token_type=")[0]
    
 BToken = "Bearer " + nonbtoken + ""
 
@@ -67,28 +65,27 @@ while 1 == 1:
           'Accept-Language' : 'en-US,en;q=0.9',
           }
     ''' The easy way to edit what pfp plays after what '''
-    def i1():
+    def i1(x):
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName1)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
-    def i2():
+        x = x + 1
+    def i2(x):
+        x = x + 1
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName2)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
-    def i3():
+    def i3(x):
+        x = x + 1
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName3)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
     
-    ''' In this default format, it will show image 1 first, then image 2, then image 3, then image 2 again and will LOOP this also the x = x + 1 is how the request counter adds 1 each time it makes a request '''
-    i1()
-    x = x + 1
-    i2()
-    x = x + 1
-    i3()
-    x = x + 1
-    i2()
-    x = x + 1
+    ''' In this default format, it will show image 1 first, then image 2, then image 3, then image 2 again and will LOOP this. The x value in the function calls is to make the counter function, if you don't add it to your function calls or you delete them, THE COUNTER WILL NOT WORK. '''
+    i1(x)
+    i2(x)
+    i3(x)
+    i2(x)
     
     ''' Requests a new auth token when that one is no longer valid '''
     r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers)
@@ -98,7 +95,7 @@ while 1 == 1:
 
         authR = requests.get('https://auth.rec.net/connect/authorize?client_id=recnet&redirect_uri=https%3A%2F%2Frec.net%2Fauthenticate%2Fsilent&response_type=id_token%20token&scope=openid%20rn.api%20rn.notify%20rn.match.read%20rn.chat%20rn.accounts%20rn.auth%20rn.link%20rn.clubs%20rn.rooms&state=3b0bbf22ce1c40e7966dc6dd0f2df854&nonce=1ec7e44b909c416bbffae6b5e00ccb38&prompt=none', headers = authHeader, allow_redirects=True)
     
-        nonbtoken = authR.url[tc1:tc2]
+        nonbtoken = authR.url.split("access_token=")[1].split("&token_type=")[0]
    
         BToken = "Bearer " + nonbtoken + ""
 
