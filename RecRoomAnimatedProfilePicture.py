@@ -1,8 +1,8 @@
 ''' Stuff you need to update for this to work '''
 'Enter your username here'
-user = 'zigzatuzoo'
+user = ''
 'Enter your password here'
-passwd = 'aann1324!#'
+passwd = ''
 
 
 
