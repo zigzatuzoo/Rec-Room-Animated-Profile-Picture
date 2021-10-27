@@ -4,7 +4,7 @@ user = ''
 'Enter your password here'
 passwd = ''
 
-login = rnl.login_to_recnet(username=user,password=passwd)
+
 
 image1 = '2d83af05944d49c69fa9565fb238a91b.jpg'
 image2 = '49b2788b672e4088a25eb0a9eff35c17.jpg'
@@ -30,6 +30,7 @@ except:
     Thank you!''')
 
 ''' Just Initializing some values '''
+login = rnl.login_to_recnet(username=user,password=passwd)
 x = 1
 BToken = ''
 
@@ -39,7 +40,7 @@ imageName2 = 'imageName=' + image2
 imageName3 = 'imageName=' + image3
 
 ''' Initial token request '''
-BToken = "Bearer " + login.access_token
+BToken = login.access_token
 
 print(BToken)
 
@@ -89,6 +90,6 @@ while 1 == 1:
     if r.status_code == 401:
         print('Invalid Token')
         login = rnl.login_to_recnet(username=user,password=passwd)
-        BToken = "Bearer " + login.access_token
+        BToken = login.access_token
 
         print(BToken)
