@@ -1,8 +1,8 @@
 ''' Stuff you need to update for this to work '''
 'Enter your username here'
-user = ''
+user = 'zigzatuzoo'
 'Enter your password here'
-passwd = ''
+passwd = 'aann1324!#'
 
 
 
@@ -31,7 +31,7 @@ except:
 
 ''' Just Initializing some values '''
 login = rnl.login_to_recnet(username=user,password=passwd)
-x = 1
+x = 0
 BToken = ''
 
 ''' Making the strings into the format read by the rec.net image api '''
@@ -62,27 +62,29 @@ while 1 == 1:
           'Accept-Language' : 'en-US,en;q=0.9',
           }
     ''' The easy way to edit what pfp plays after what '''
-    def i1(x):
+    def i1():
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName1)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
-        x = x + 1
-    def i2(x):
-        x = x + 1
+    def i2():
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName2)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
-    def i3(x):
-        x = x + 1
+    def i3():
         r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers, data = imageName3)
         print(str(r) + " num of requests: " + str(x))
         time.sleep(speed)
     
     ''' In this default format, it will show image 1 first, then image 2, then image 3, then image 2 again and will LOOP this. The x value in the function calls is to make the counter function, if you don't add it to your function calls or you delete them, THE COUNTER WILL NOT WORK. '''
-    i1(x)
-    i2(x)
-    i3(x)
-    i2(x)
+    x = x + 1
+    i1()
+    x = x + 1
+    i2()
+    x = x + 1
+    i3()
+    x = x + 1
+    i2()
+    
     
     ''' Requests a new auth token when that one is no longer valid '''
     r = requests.put('https://accounts.rec.net/account/me/profileImage', headers = Headers)
